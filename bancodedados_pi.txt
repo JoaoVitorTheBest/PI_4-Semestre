@@ -1,0 +1,18 @@
+CREATE DATABASE aplicativo;
+
+USE aplicativo;
+
+CREATE TABLE usuarios (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(255) NOT NULL,
+  cpf VARCHAR(14) UNIQUE NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  senha VARCHAR(255) NOT NULL,
+  tipo ENUM('admin', 'estoquista', 'cliente') DEFAULT 'cliente',
+  status ENUM('ativo', 'inativo') DEFAULT 'ativo',
+  data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+
+select * from usuarios;
+
