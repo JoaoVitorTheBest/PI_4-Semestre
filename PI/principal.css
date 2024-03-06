@@ -1,0 +1,41 @@
+#main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 100px;
+    align-items: center;
+    background: rgba(0,0,0,.5); /* Fundo escuro com transparência */
+    padding: 40px;
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+}
+
+.button {
+    line-height: 20px;
+    width: 150px;
+    height: 50px;
+    border: 1px solid #fff; /* Cor da borda modificada para branco */
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    margin: 30px;
+    color: #03e9f4; /* Cor do texto */
+    background: transparent; /* Fundo transparente */
+}
+
+.nome {
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #03e9f4; /* Cor de fundo modificada para azul */
+    color: #fff; /* Cor do texto modificada para branco */
+    border-color: #03e9f4; /* Cor da borda modificada para azul */
+    border-radius: 5px;
+    box-shadow: 0 0 5px #03e9f4,
+                0 0 25px #03e9f4,
+                0 0 50px #03e9f4,
+                0 0 100px #03e9f4; /* Adicionado efeito de sombra */
+}

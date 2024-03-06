@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela Principal</title>
+    <link rel="stylesheet" href="principal.css">
+</head>
+<body>
+    <h1 class="nome">Seja bem-vindo a Loja de Todos</h1>
+    <div id="main">
+        <div></div>
+        <div class="button" onclick="listarUsuarios()">Listar Usuários</div>
+        <div class="button">Listar Produtos</div>
+        <div class="button">Listar Pedidos</div>
+    </div>
+
+    <script>
+        function listarUsuarios() {
+            window.location.href = 'listausuarioshtml.php'; // Redireciona para a página listarusuarioshtml.php
+        }
+    </script>
+</body>
+</html>
