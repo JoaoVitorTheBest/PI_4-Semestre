@@ -1,0 +1,84 @@
+/* Estilo para o contêiner principal */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Estilo para o contêiner do produto */
+.produto {
+    display: flex;
+    margin-top: 70px;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+/* Estilo para o carrossel de imagens */
+.imagens-carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 20px;
+}
+
+/* Estilo para as imagens menores no carrossel */
+.imagens-carousel img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1px;
+    cursor: pointer;
+}
+
+/* Estilo para a imagem principal */
+.imagem-principal {
+    flex: 1;
+    max-width: 100%;
+    margin-right: 150px;
+}
+
+.imagem-principal img {
+    max-width: 150%;
+    height: auto;
+}
+
+/* Estilo para os detalhes do produto */
+.detalhes {
+    flex: 1;
+    padding: 0 20px;
+}
+
+.detalhes h1 {
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+
+.preco {
+    font-size: 35px;
+    color: green;
+}
+
+.avaliacao {
+    font-size: 30px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.descricao {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.comprar-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #ccc;
+    border: none;
+    cursor: not-allowed;
+    color: #666;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.comprar-button:hover {
+    background-color: #aaa;
+}

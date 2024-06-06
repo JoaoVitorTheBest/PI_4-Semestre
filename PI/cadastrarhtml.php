@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -63,13 +64,22 @@
         popup.style.backgroundColor = 'pink';
       } else {
         popup.style.backgroundColor = 'lightgreen';
+        // Limpar campos do formulário em caso de sucesso
+        if (mensagem.includes('sucesso')) {
+          document.getElementById('nome').value = '';
+          document.getElementById('cpf').value = '';
+          document.getElementById('email').value = '';
+          document.getElementById('senha').value = '';
+          document.getElementById('confirmar_senha').value = '';
+          document.getElementById('grupo').selectedIndex = 0;
+        }
       }
       // Esconder o pop-up após 3 segundos
       setTimeout(function() {
         popup.style.display = 'none';
       }, 3000);
     }
-    
+
     // Função para formatar o CPF no padrão brasileiro (XXX.XXX.XXX-XX)
     document.getElementById('cpf').addEventListener('input', function(e) {
       var cpf = e.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
@@ -92,52 +102,8 @@
       }
     });
 
-    // Função para validar o CPF
-    function validarCPF(cpf) {
-      cpf = cpf.replace(/\D/g, '');
-      if (cpf.length !== 11 ||
-        cpf === '00000000000' ||
-        cpf === '11111111111' ||
-        cpf === '22222222222' ||
-        cpf === '33333333333' ||
-        cpf === '44444444444' ||
-        cpf === '55555555555' ||
-        cpf === '66666666666' ||
-        cpf === '77777777777' ||
-        cpf === '88888888888' ||
-        cpf === '99999999999') {
-        return false;
-      }
-      var soma = 0;
-      var resto;
-      for (var i = 1; i <= 9; i++) {
-        soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
-      }
-      resto = (soma * 10) % 11;
-      if ((resto === 10) || (resto === 11)) {
-        resto = 0;
-      }
-      if (resto !== parseInt(cpf.substring(9, 10))) {
-        return false;
-      }
-      soma = 0;
-      for (var i = 1; i <= 10; i++) {
-        soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
-      }
-      resto = (soma * 10) % 11;
-      if ((resto === 10) || (resto === 11)) {
-        resto = 0;
-      }
-      if (resto !== parseInt(cpf.substring(10, 11))) {
-        return false;
-      }
-      return true;
-    }
-
     // Verificar se há mensagens de erro ou sucesso e exibir o pop-up
     <?php
-    session_start();
-
     if (isset($_SESSION['mensagem_erro'])) {
       echo "mostrarMensagem('erro', '" . $_SESSION['mensagem_erro'] . "');";
       unset($_SESSION['mensagem_erro']); // Limpa a mensagem de erro para não exibi-la novamente

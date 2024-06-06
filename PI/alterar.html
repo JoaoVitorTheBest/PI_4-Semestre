@@ -52,6 +52,11 @@
       // Obtém os dados do formulário
       const formData = new FormData(this);
 
+      // Adiciona o ID do usuário ao FormData
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('id');
+      formData.append('id', userId);
+
       // Envia uma solicitação POST para o arquivo PHP de atualização
       fetch('alterar.php', {
         method: 'POST',
@@ -83,6 +88,8 @@
             .then(data => {
                 // Preencher os campos do formulário com as informações do usuário
                 preencherCampos(data);
+                // Preencher o campo ID do formulário com o ID do usuário
+                document.getElementById('id').value = userId;
             })
             .catch(error => {
                 console.error('Erro ao buscar informações do usuário:', error);
@@ -91,6 +98,7 @@
         console.error('ID do usuário não fornecido na URL');
     }
 </script>
+
 
 </body>
 </html>

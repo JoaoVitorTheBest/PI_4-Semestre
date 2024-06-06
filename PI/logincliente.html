@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Cliente</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="login-container">
+        <!-- Inserção da logo -->
+        <div class="logo-container">
+            <img src="images/ET.png" alt="Logo" class="logo">
+        </div>
+        <h2>Que bom ter você aqui!</h2>
+        
+        <form action="logincliente.php" method="post">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <p>Ainda não tem uma conta? <a href="cadastracliente.html">Crie uma agora!</a></p>
+    </div>
+</body>
+</html>

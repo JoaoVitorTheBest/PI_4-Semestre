@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alterar Produto</title>
+  <link rel="stylesheet" href="alterarproduto.css">
+  <script>
+    window.onload = function() {
+      // Variável global para armazenar os IDs das imagens a serem removidas
+      var imagensRemover = [];
+
+      // Função para preencher os campos com os dados do produto e suas fotos
+      function preencherCampos(produto) {
+        document.getElementById('nome').value = produto.nome;
+        document.getElementById('avaliacao').value = produto.avaliacao;
+        document.getElementById('descricao').value = produto.descricao;
+        document.getElementById('preco').value = produto.preco;
+        document.getElementById('qtdEstoque').value = produto.qtd_estoque;
+        document.getElementById('produtoId').value = produto.id;
+        
+
+        // Limpar as opções de imagem principal e listar as imagens cadastradas
+        var selectElement = document.getElementById('imagem_principal');
+        selectElement.innerHTML = ''; // Limpa as opções atuais
+
+        // Armazenar as opções existentes antes de limpar o menu suspenso
+        var existingOptions = [];
+        for (var i = 0; i < selectElement.options.length; i++) {
+          existingOptions.push({
+            value: selectElement.options[i].value,
+            text: selectElement.options[i].textContent
+          });
+        }
+
+        // Adiciona as imagens cadastradas como opções
+        produto.fotos.forEach(function(foto, index) {
+          // Adiciona uma opção para cada foto
+          var option = document.createElement('option');
+          option.value = foto.id; // Alterado para o ID da imagem no banco de dados
+          option.textContent = foto.caminho;
+          selectElement.appendChild(option);
+        });
+
+        // Mostrar a imagem principal selecionada
+        var imagemPrincipal = produto.fotos.find(function(foto) {
+          return foto.principal == 1;
+        });
+
+        if (imagemPrincipal) {
+          selectElement.value = imagemPrincipal.id; // Alterado para o ID da imagem no banco de dados
+        }
+
+        // Adicionar as opções existentes de volta ao menu suspenso
+        existingOptions.forEach(function(option) {
+          var existingOption = document.createElement('option');
+          existingOption.value = option.value;
+          existingOption.textContent = option.text;
+          selectElement.appendChild(existingOption);
+        });
+
+        // Mostra as imagens na tela
+        var imagensContainer = document.getElementById('imagensContainer');
+        imagensContainer.innerHTML = ''; // Limpa as imagens atuais
+        produto.fotos.forEach(function(foto, index) {
+          var imgElement = document.createElement('img');
+          imgElement.src = foto.caminho;
+          imgElement.style.maxWidth = '100px'; // Definir o tamanho máximo da imagem
+
+          // Adiciona botão para remover a imagem
+          var removeButton = document.createElement('button');
+          removeButton.textContent = 'Remover';
+          removeButton.addEventListener('click', function() {
+            // Adiciona o ID da imagem a ser removida ao array
+            imagensRemover.push(foto.id); // Alterado para o ID da imagem no banco de dados
+            // Remove a imagem da tela
+            imgElement.parentNode.removeChild(imgElement);
+            removeButton.parentNode.removeChild(removeButton);
+
+            // Remove a opção correspondente da imagem removida na seleção da imagem principal
+            selectElement.querySelectorAll('option').forEach(function(option) {
+              if (option.textContent === foto.caminho) {
+                option.parentNode.removeChild(option);
+              }
+            });
+
+            // Atualiza a opção selecionada na seleção da imagem principal, se necessário
+            if (selectElement.value === foto.id) { // Alterado para o ID da imagem no banco de dados
+              selectElement.value = ''; // Define como vazio (seleção padrão)
+            }
+          });
+
+          // Adiciona a imagem e o botão de remover ao container
+          imagensContainer.appendChild(imgElement);
+          imagensContainer.appendChild(removeButton);
+        });
+      }
+
+      // Adicionar evento de mudança para o campo de entrada de arquivos
+      document.getElementById('imagens').addEventListener('change', function() {
+        var fileInput = this;
+        var selectElement = document.getElementById('imagem_principal');
+
+        // Armazenar as opções existentes antes de adicionar as novas opções das imagens selecionadas
+        var existingOptions = [];
+        for (var i = 0; i < selectElement.options.length; i++) {
+          existingOptions.push({
+            value: selectElement.options[i].value,
+            text: selectElement.options[i].textContent
+          });
+        }
+
+        // Limpar as opções existentes do menu suspenso
+        selectElement.innerHTML = '';
+
+        // Adicionar a opção padrão apenas se ela ainda não estiver presente
+        var selectOptionPresent = false;
+        for (var i = 0; i < existingOptions.length; i++) {
+          if (existingOptions[i].text === 'Selecionar') {
+            selectOptionPresent = true;
+            break;
+          }
+        }
+        if (!selectOptionPresent) {
+          var defaultOption = document.createElement('option');
+          defaultOption.value = '';
+          defaultOption.textContent = 'Selecionar';
+          selectElement.appendChild(defaultOption);
+        }
+
+        // Adicionar as novas imagens como opções ao menu suspenso
+        for (var i = 0; i < fileInput.files.length; i++) {
+          var newImageOption = document.createElement('option');
+          newImageOption.value = 'nova_imagem_' + i; // Identificador para imagens novas
+          newImageOption.textContent = fileInput.files[i].name;
+          selectElement.appendChild(newImageOption);
+        }
+
+        // Adicionar as opções existentes de volta ao menu suspenso
+        existingOptions.forEach(function(option) {
+          var existingOption = document.createElement('option');
+          existingOption.value = option.value;
+          existingOption.textContent = option.text;
+          selectElement.appendChild(existingOption);
+        });
+      });
+
+      // Requisição AJAX para buscar os detalhes do produto
+      function obterDetalhesProduto(idProduto) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'alterarproduto.php?id=' + idProduto, true);
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            var produto = JSON.parse(xhr.responseText);
+            preencherCampos(produto);
+          } else {
+            alert('Erro ao obter os dados do produto.');
+          }
+        };
+        xhr.onerror = function() {
+          alert('Erro de conexão.');
+        };
+        xhr.send();
+      }
+
+      // Obtém o ID do produto da URL e obtém os detalhes desse produto
+      var idProduto = getProductIdFromUrl();
+      if (idProduto) {
+        obterDetalhesProduto(idProduto);
+      } else {
+        alert('ID do produto não especificado na URL.');
+      }
+
+      // Event listener para o formulário de alteração
+      document.getElementById('formProduto').onsubmit = function(event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        var form = this;
+        var formData = new FormData(form);
+
+        // Adiciona o índice da imagem principal selecionada aos dados do formulário
+        var imagemPrincipalIndex = document.getElementById('imagem_principal').selectedIndex;
+        formData.append('imagemPrincipalIndex', imagemPrincipalIndex);
+
+        // Adiciona os IDs das imagens a serem removidas aos dados do formulário
+        formData.append('imagensRemover', JSON.stringify(imagensRemover));
+
+        // Obtém o ID do produto da URL e adiciona aos dados do formulário
+        var idProduto = getProductIdFromUrl();
+        if (idProduto) {
+          formData.append('produtoId', idProduto);
+        }
+
+        // Enviar os dados do formulário para alterarproduto.php usando AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'alterarproduto.php', true);
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            // Exibir mensagem de confirmação
+            alert(xhr.responseText);
+            // Redirecionar para a página de listagem de produtos
+            window.location.href = 'listarprodutoshtml.php';
+          } else {
+            alert('Erro ao processar a requisição.');
+          }
+        };
+        xhr.onerror = function() {
+          alert('Erro de conexão.');
+        };
+        xhr.send(formData);
+      };
+
+      // Função para obter o ID do produto da URL
+      function getProductIdFromUrl() {
+        var urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('id');
+      }
+    };
+  </script>
+</head>
+<body>
+  <h1>Alterar Produto</h1>
+  <form id="formProduto" method="post" enctype="multipart/form-data">
+    <input type="hidden" id="produtoId" name="produtoId"> <!-- Campo oculto para armazenar o ID do produto -->
+    <input type="hidden" id="imagemPrincipalIndex" name="imagemPrincipalIndex"> <!-- Campo oculto para armazenar o índice da imagem principal -->
+    <label for="nome">Nome do Produto:</label>
+    <input type="text" id="nome" name="nome" maxlength="200" required>
+    <label for="avaliacao">Avaliação:</label>
+    <input type="number" id="avaliacao" name="avaliacao" min="1" max="5" step="0.5" required>
+    <label for="descricao">Descrição Detalhada:</label>
+    <textarea id="descricao" name="descricao" rows="5" maxlength="2000" required></textarea>
+    <label for="preco">Preço:</label>
+    <input type="number" id="preco" name="preco" min="0" step="0.01" required>
+    <label for="qtdEstoque">Quantidade em Estoque:</label>
+    <input type="number" id="qtdEstoque" name="qtdEstoque" min="0" step="1" required>
+
+    <!-- Botão "Escolher Ficheiros" para múltiplas imagens -->
+    <label for="imagens">Alterar Imagens:</label>
+    <input type="file" id="imagens" class="imagens" name="imagens[]" accept="image/*" multiple>
+
+    <!-- Opções de seleção da imagem principal -->
+    <label for="imagem_principal">Imagem Principal:</label>
+    <select id="imagem_principal" name="imagem_principal"></select>
+
+    <!-- Container para exibir as imagens cadastradas -->
+    <div id="imagensContainer"></div>
+
+    <input type="submit" value="Salvar Alterações">
+    <button type="button" id="btnCancelar">Cancelar</button>
+  </form>
+</body>
+</html>

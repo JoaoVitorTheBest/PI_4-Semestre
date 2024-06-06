@@ -36,12 +36,14 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
         // Verifica se a senha fornecida pelo usuário corresponde à senha armazenada
         if (password_verify($senha, $senhaArmazenada)) {
             // Login bem-sucedido
+            // Define o tipo de usuário na sessão
+          $_SESSION['tipo_usuario'] = $usuario['tipo'];
             // Redireciona para a página principal
-            header("Location: principal.html");
+            header("Location: principalhtml.php");
             exit();
         } else {
             // Senha incorreta
-            $_SESSION['mensagem_erro'] = "Senha incorreta";
+            $_SESSION['mensagem_erro'] = "Usuário ou Senha incorretos";
             header("Location: login.php");
             exit();
         }

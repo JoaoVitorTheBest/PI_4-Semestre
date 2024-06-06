@@ -1,0 +1,123 @@
+/* Estilo Geral */
+body {
+    font-family: 'Arial', sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: #e9ecef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+/* Container de Login, Cadastro e Carrinho */
+.login-container,
+.cadastro-container,
+.carrinho-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+
+/* Container da Logo */
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    max-width: 120px;
+    height: auto;
+}
+
+/* Estilo dos Formulários */
+form label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #495057;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo dos Itens do Carrinho */
+.carrinho-itens {
+    margin-top: 20px;
+}
+
+.carrinho-item {
+    border-bottom: 1px solid #ced4da;
+    padding: 10px 0;
+}
+
+/* Estilo dos Botões de Remover e Finalizar */
+.remover-button,
+.finalizar-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #dc3545;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.remover-button:hover,
+.finalizar-button:hover {
+    background-color: #c82333;
+}
+
+/* Estilo dos Links */
+p {
+    text-align: center;
+    color: #495057;
+}
+
+p a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo da Mensagem de Erro */
+.erro {
+    color: #dc3545;
+    text-align: center;
+    margin-bottom: 20px;
+}

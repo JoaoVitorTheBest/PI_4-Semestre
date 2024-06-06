@@ -1,0 +1,102 @@
+/* Estilo para o contêiner principal */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Estilo para o contêiner do produto */
+.produto {
+    display: flex;
+    margin-top: 70px;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+/* Estilo para o carrossel de imagens */
+.imagens-carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 20px;
+}
+
+/* Estilo para as imagens menores no carrossel */
+.imagens-carousel img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px; /* Aumenta o espaçamento entre as imagens */
+    cursor: pointer;
+}
+
+/* Estilo para a imagem principal */
+.imagem-principal {
+    flex: 1;
+    max-width: 100%;
+    margin-right: 150px;
+}
+
+.imagem-principal img {
+    max-width: 100%; /* Corrige a largura da imagem principal */
+    height: auto;
+}
+
+/* Estilo para os detalhes do produto */
+.detalhes {
+    flex: 1;
+    padding: 0 20px;
+}
+
+.detalhes h1 {
+    font-size: 28px; /* Aumenta o tamanho do título */
+    margin-bottom: 20px; /* Aumenta o espaçamento abaixo do título */
+}
+
+.preco {
+    font-size: 28px; /* Aumenta o tamanho do preço */
+    color: green;
+    margin-bottom: 10px; /* Aumenta o espaçamento abaixo do preço */
+}
+
+.avaliacao {
+    font-size: 24px; /* Ajusta o tamanho da avaliação */
+    color: #888;
+    margin-bottom: 20px; /* Aumenta o espaçamento abaixo da avaliação */
+}
+
+.descricao {
+    font-size: 18px; /* Ajusta o tamanho da descrição */
+    margin-bottom: 30px; /* Aumenta o espaçamento abaixo da descrição */
+}
+
+/* Estilo para o botão de comprar */
+.comprar-button {
+    padding: 15px 30px; /* Aumenta o espaçamento interno do botão */
+    font-size: 20px; /* Aumenta o tamanho do texto do botão */
+    background-color: #007bff;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: block; /* Torna o botão um bloco para ocupar a largura máxima disponível */
+    width: 100%; /* Garante que o botão ocupe a largura total do seu contêiner */
+    text-align: center; /* Centraliza o texto dentro do botão */
+    margin-top: 20px; /* Adiciona espaçamento acima do botão */
+}
+
+.comprar-button:hover {
+    background-color: #0056b3;
+}
+
+.produto-card .detalhe-button:hover {
+    background-color: #0056b3;
+}
+div.centered-image {
+    text-align: center; /* Alinha o conteúdo no centro horizontalmente */
+}
+
+div.centered-image img {
+    display: block; /* Garante que a imagem seja tratada como um bloco */
+    margin: 0 auto; /* Define margem automática para centralizar horizontalmente */
+}
